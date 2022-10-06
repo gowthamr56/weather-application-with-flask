@@ -26,11 +26,8 @@ def signin(email, password):
         user = auth.sign_in_with_email_and_password(email, password)
         isVerified = auth.get_account_info(user["idToken"])["users"][0]["emailVerified"]
         
-        # if isVerified:
         return ("Successfully logged in", "success") if isVerified else ("Email not verified, check your inbox", "warning")
-        # elif not isVerified:
-        #     auth.send_email_verification(user["idToken"])
-        #     return ("Email not verified, check your inbox", "warning")
+
     
     except Exception as e:
         if "INVALID_PASSWORD" in e.strerror:
