@@ -1,0 +1,115 @@
+<!-- HOME PAGE -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Application - Home</title>
+    <!-- Bootstrap-CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .parent-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%)
+        }
+
+        .col {
+            padding: 5px;
+        }
+
+        .search-city>* {
+            padding: 5px;
+        }
+
+        .form-inline>button {
+            margin-left: 10px;
+        }
+
+        .signout-form {
+            margin-top: 10px;
+        }
+        img{
+            transition-property: all;
+            transition-duration: 1s;
+            transition-timing-function: ease;
+        }
+        img:hover{
+            cursor: pointer;
+            transform: scale(5);
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="parent-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="border-0 alert alert-{{category}} alert-dismissible fade show">
+            {{message}}<br>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="container">
+            <div class="row">
+                <div class="col search-city">
+                    <h2>Weather Forecasting Application</h2>
+                    <form method="POST" class="search-form">
+                        <div class="form-inline">
+                            <input type="text" name="city" class="form-control" placeholder="Search your city" required>
+                            <button class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% if city %}
+        <div class="container">
+            <div class="col">
+                <!-- <center><img src={{report[1]}} width="150" height="150"></center> -->
+                <p style="text-align: justify;">
+                    In <span class="text-primary" style="cursor: pointer"
+                        title="{{report[7]}}, {{report[8]}}">{{report[7]}}</span>, the weather seems to be like
+                    <b>{{report[2]}}</b><img src={{report[1]}} width="25px" height="25px">, it feels like <b>{{report[3]}}°C</b> temperature, the maximum and minimum temperature can be
+                    like <b>{{report[4]}}°C</b> and <b>{{report[5]}}°C</b> and the average temperature can be <b>{{report[0]}}°C</b>. The
+                    humidity of the air can be <b>{{report[6]}}%</b>.
+                </p>
+            </div>
+        </div>
+        {% endif %}
+        <div class="signout-form">
+            <form method="POST">
+                <button class="btn btn-light btn-block">Sign out</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Bootsrap-JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
