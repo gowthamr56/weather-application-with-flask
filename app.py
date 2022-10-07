@@ -109,12 +109,12 @@ def home():
                         secure_filename("icon.png")
                     )
                     print(path)
-                    with open(path, "wb") as file:
-                        file.write(content)
+                    # with open(path, "wb") as file:
+                    #     file.write(content)
 
-                    icon_path = url_for("static", filename="weather_icon/icon.png")
+                    # icon_path = url_for("static", filename="weather_icon/icon.png")
 
-                    weather_report = (temp, icon_path, description, feels_like, temp_max, temp_min, humidity, place, country)
+                    weather_report = (temp, None, description, feels_like, temp_max, temp_min, humidity, place, country)
 
                     return render_template("home.html", city=city, report=weather_report)
 
