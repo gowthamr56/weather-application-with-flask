@@ -2,8 +2,10 @@
 from flask import Flask, render_template, url_for, request, flash, redirect, session
 from werkzeug.utils import secure_filename
 import auth_essentials
-from api_key import API_KEY
+from dotenv import load_dotenv
 import os, requests
+
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.urandom(10)
@@ -74,8 +76,9 @@ def home():
                 icon_url = "http://openweathermap.org/img/wn/{}@2x.png"
 
                 city = request.form["city"]
-
-                complete_url = f"{base_url}appid={API_KEY}&q={city}"
+                
+                api_key = os.getenv("API_KEY")
+                complete_url = f"{base_url}appid={api_key}&q={city}"
                 res = requests.get(complete_url)
                 data = res.json()
 

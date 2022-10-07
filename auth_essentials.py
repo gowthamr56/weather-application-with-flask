@@ -1,8 +1,22 @@
 # FIREBASE AUTHENTICATION ESSENTIALS
 import pyrebase
+from dotenv import load_dotenv
 import json
+import os
 
-config = json.load(open("firebase_config.json", "r"))
+load_dotenv()
+
+# config = json.load(open("firebase_config.json", "r"))
+config = {
+    "apiKey": os.getenv("apiKey"),
+    "authDomain": os.getenv("authDomain"),
+    "projectId": os.getenv("projectId"),
+    "storageBucket": os.getenv("storageBucket"),
+    "messagingSenderId": os.getenv("messagingSenderId"),
+    "appId": os.getenv("appId"),
+    "measurementId": os.getenv("measurementId"),
+    "databaseURL": os.getenv("databaseURL")
+}
 
 pb = pyrebase.initialize_app(config)
 auth = pb.auth()
