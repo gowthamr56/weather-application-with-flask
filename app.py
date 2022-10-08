@@ -122,7 +122,7 @@ def home():
             else:
                 signout()
                 return redirect("/")
-        return redirect("/home")
+        return render_template("home.html")
     else:
         return redirect("/signin")
 
