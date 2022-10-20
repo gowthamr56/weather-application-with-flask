@@ -25,48 +25,6 @@ def mainpage():
         firebase_svg = firebase_svg
     )
 
-@app.route("/signup", methods=["GET", "POST"])
-def signup():
-    if request.method == "POST":
-        email = request.form["email"]
-        password1 = request.form["password1"]
-        password2 = request.form["password2"]
-        
-        if password1 != password2:
-            flash("Both passwords should be same", category="danger")
-        else:
-            message, category = auth_essentials.signup(email, password1)
-            if category != "success":
-                flash(message, category=category)
-            else:
-                return redirect("/signin")        
-
-    return render_template("sign_up.html")
-
-@app.route("/signin", methods=["GET", "POST"])
-def signin():
-    if "user" in session:
-        return redirect("/home")
-    if request.method == "POST":
-        email = request.form["email"]
-        password = request.form["password"]
-
-        message, category = auth_essentials.signin(email, password)
-        # message = auth_essentials.signin(email, password)
-        print("*"*10)
-        print(message)
-        print("*"*10)
-        if category in ["success", "warning"]:
-            session["user"] = email
-            flash(message, category=category)
-            return redirect("/home")
-        flash(message, category=category)
-
-    return render_template("sign_in.html")
-
-def signout():
-    session.pop("user")
-
 @app.route("/home", methods=["GET", "POST"])
 def home():
     if "user" in session:
@@ -118,13 +76,57 @@ def home():
 
                     return render_template("home.html", city=city, report=weather_report)
 
-                return render_template("home.html", city=city)
+                # return render_template("home.html", city=city)
             else:
                 signout()
                 return redirect("/")
         return render_template("home.html")
     else:
         return redirect("/signin")
+
+
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method == "POST":
+        email = request.form["email"]
+        password1 = request.form["password1"]
+        password2 = request.form["password2"]
+        
+        if password1 != password2:
+            flash("Both passwords should be same", category="danger")
+        else:
+            message, category = auth_essentials.signup(email, password1)
+            if category != "success":
+                flash(message, category=category)
+            else:
+                return redirect("/signin")        
+
+    return render_template("sign_up.html")
+
+@app.route("/signin", methods=["GET", "POST"])
+def signin():
+    if "user" in session:
+        return redirect("/home")
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+
+        message, category = auth_essentials.signin(email, password)
+        # message = auth_essentials.signin(email, password)
+        print("*"*10)
+        print(message)
+        print("*"*10)
+        if category in ["success", "warning"]:
+            session["user"] = email
+            flash(message, category=category)
+            return redirect("/home")
+        flash(message, category=category)
+
+    return render_template("sign_in.html")
+
+def signout():
+    session.pop("user")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
