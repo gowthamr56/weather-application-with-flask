@@ -77,7 +77,7 @@ def home():
                     return render_template("home.html", city=city, report=weather_report)
 
                 # return render_template("home.html", city=city)
-            else:
+            elif "signout_form" in request.form:
                 signout()
                 return redirect("/")
         return render_template("home.html")
